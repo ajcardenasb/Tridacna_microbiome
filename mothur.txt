@@ -1,0 +1,156 @@
+make.contigs(file=clam.files, processors=12)
+#Output File Names:
+#Clam.trim.contigs.fasta #alle fastq sind jetzt fasta
+#Clam.trim.contigs.qual #gibt dir die Qualitaet
+#clam.contigs.report
+#Clam.scrap.contigs.fasta # alle die zu denen es kein Gegenstueck gab
+#clam.scrap.contigs.qual
+#clam.contigs.groups
+
+count.groups(group=clam.contigs.groups)
+#Output File Names:
+#clam.contigs.count.summary
+
+screen.seqs(fasta=clam.trim.contigs.fasta, minlength=200, group=clam.contigs.groups, processors=16)
+#Output File Names:
+#clam.trim.contigs.good.fasta
+#clam.trim.contigs.bad.accnos
+#clam.contigs.good.groups
+
+unique.seqs(fasta=clam.trim.contigs.fasta)
+#Output File Names:
+#clam.trim.contigs.names
+#clam.trim.contigs.unique.fasta
+
+count.seqs(name=clam.trim.contigs.names, group=clam.contigs.groups)
+#Output File Names:
+#clam.trim.contigs.count_table
+
+split.abund(fasta=clam.trim.contigs.unique.fasta, count=clam.trim.contigs.count_table, cutoff=1)
+#Output File Names:
+#clam.trim.contigs.rare.count_table
+#clam.trim.contigs.abund.count_table
+#clam.trim.contigs.unique.rare.fasta
+#clam.trim.contigs.unique.abund.fasta
+
+summary.seqs(fasta=clam.trim.contigs.unique.rare.fasta, count=clam.trim.contigs.rare.count_table)
+#Output File Names:
+#Clam.trim.contigs.unique.rare.summary
+
+summary.seqs(fasta=clam.trim.contigs.unique.abund.fasta, count=clam.trim.contigs.abund.count_table)
+#Output File Names:
+#Clam.trim.contigs.unique.abund.summary
+
+count.groups(count=clam.trim.contigs.abund.count_table)
+#Output File Names:
+#clam.trim.contigs.abund.count.summary
+
+#Need to download silva.bacteria.fasta https://www.arb-silva.de/download/arb-files/ before next step
+pcr.seqs(fasta=silva.bacteria.fasta, oligos=Andersson_noadapters.txt)
+#Output File Names:
+#silva.bacteria.bad.accnos
+#silva.bacteria.scrap.pcr.fasta
+
+summary.seqs(fasta=silva.bacteria.pcr.fasta)
+#Output File Names:
+#silva.bacteria.pcr.summary
+
+align.seqs(fasta=clam.trim.contigs.unique.abund.fasta, reference=/home/cardena/database/16S_mothur/silva.bacteria.pcr.fasta, processors=16, flip=true)
+#Output File Names:
+#clam.trim.contigs.unique.abund.align
+#clam.trim.contigs.unique.abund.align.report
+#clam.trim.contigs.unique.abund.flip.accnos
+
+summary.seqs(fasta=clam.trim.contigs.unique.abund.align, count=clam.trim.contigs.abund.count_table, processors=10)
+#Output File Names:
+#clam.trim.contigs.unique.abund.summary
+
+screen.seqs(fasta=clam.trim.contigs.unique.abund.align, count=clam.trim.contigs.abund.count_table, start=25298, optimize=end, minlength=250, processors=16)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.align
+#clam.trim.contigs.unique.abund.bad.accnos
+#clam.trim.contigs.abund.good.count_table
+
+summary.seqs(fasta=clam.trim.contigs.unique.abund.good.align, count=clam.trim.contigs.abund.good.count_table)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.summary
+
+count.groups(count=clam.trim.contigs.abund.count_table)
+#Output File Names:
+#clam.trim.contigs.abund.count.summary
+
+filter.seqs(fasta=clam.trim.contigs.unique.abund.good.align, vertical=T,trump=.)
+#Output File Names:
+#clam.filter
+#clam.trim.contigs.unique.abund.good.filter.fasta
+
+unique.seqs(fasta=clam.trim.contigs.unique.abund.good.filter.fasta, count=clam.trim.contigs.abund.count_table)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.filter.count_table
+#clam.trim.contigs.unique.abund.good.filter.unique.fasta
+
+pre.cluster(fasta=clam.trim.contigs.unique.abund.good.filter.unique.fasta, count=clam.trim.contigs.unique.abund.good.filter.count_table, diffs=2)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.fasta
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.count_table
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.SAMPLES!!.map
+
+count.groups(count=clam.trim.contigs.unique.abund.good.filter.unique.precluster.count_table)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.count_table.summary
+
+chimera.vsearch(fasta=clam.trim.contigs.unique.abund.good.filter.unique.precluster.fasta, count=clam.trim.contigs.unique.abund.good.filter.unique.precluster.count_table, processors= 16, dereplicate=t)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.pick.count_table
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.chimeras
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.accnos
+
+remove.seqs(fasta=clam.trim.contigs.unique.abund.good.filter.unique.precluster.fasta, accnos=clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.accnos)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.fasta
+
+count.groups(count=clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.pick.count_table)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.pick.count_table.summary
+
+classify.seqs(fasta=clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.fasta, count=clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.pick.count_table, reference=/home/cardena/database/16S_mothur/gg_13_5_99.fasta, taxonomy=/home/cardena/database/16S_mothur/gg_13_5_99.pds.tax, cutoff=60, processors=16)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pds.wang.taxonomy
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pds.wang.tax.summary
+
+remove.lineage(fasta=clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.fasta, count=clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.pick.count_table, taxonomy=clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pds.wang.taxonomy, taxon=Chloroplast-chloroplast-Mitochondria-mitochondria-unknown-Archaea-Eukaryota)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.fasta
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table
+
+count.groups(count=clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table.summary
+
+cluster.split(fasta=clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.fasta, count=clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table, taxonomy=clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, splitmethod=classify, taxlevel=4, cutoff=0.03, processors=16)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.dist
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.list
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.sensspec
+
+make.shared(list=clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.list, count=clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table, label=0.03)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.shared
+
+classify.otu(list=clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.list, count=clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table, taxonomy=clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, label=0.03)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.0.03.cons.tax.summary
+
+get.oturep(fasta=clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.fasta, count=clam.trim.contigs.unique.abund.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table, list=clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.list, label=0.03, method=abundance)
+#Output File Names:
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.0.03.rep.count_table
+#clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.0.03.rep.fasta
+
+# bash
+cp clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.shared clam.final.OTU_table
+cp clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy  clam.final.taxonomy
+grep -v ">" clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.0.03.rep.fasta  | sed 's/-//g' > clam.temp1.fasta
+grep  ">"  clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.0.03.rep.fasta | cut -f2 | cut -f1 -d "|" | awk '{print ">"$1}' > clam.temp2.fasta
+paste clam.temp2.fasta clam.temp1.fasta | tr "\t" "\n"  > clam.final.fasta
