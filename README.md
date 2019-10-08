@@ -1,4 +1,4 @@
-The 16S-based bacterial diversity analysis consisted of:
+The 16S-rRNA analysis for bacterial diversity consisted of:
 
 1. Processing raw reads in Mothur and producing OTU tables, taxonomy and fasta files as summarised in `mothur.txt`
 
