@@ -1,0 +1,26 @@
+feature	LDA_score 	class	effect_size	p-value	module
+M00377	3.01047454495	Seawater	2.37294635989	5.79588690725e-06	Reductive acetyl-CoA pathway (Wood-Ljungdahl pathway)
+M00375	2.60144033018	Seawater	2.21955434868	0.000372208965232	Hydroxypropionate-hydroxybutylate cycle
+M00373	3.10416816403	Seawater	2.40452707304	0.00319374066094	Ethylmalonyl pathway
+M00568	2.5685602082	Seawater	2.00730962505	8.57877699684e-05	Catechol ortho-cleavage, catechol => 3-oxoadipate
+M00569	2.81963985004	Mantle	2.21858389354	5.06167927292e-06	Catechol meta-cleavage, catechol => acetyl-CoA / 4-methylcatechol => propanoyl-CoA
+M00378	2.93410839298	Seawater	2.57043746305	3.34094916667e-07	F420 biosynthesis
+M00346	3.01523299184	Gill	2.07402590333	0.0178354377729	Formaldehyde assimilation, serine pathway
+M00529	3.17886818158	Gill	2.77839254474	2.1827838093e-05	Denitrification, nitrate => nitrogen
+M00165	2.44140617154	Mantle	2.11940860573	3.26679161386e-06	Reductive pentose phosphate cycle (Calvin cycle)
+M00168	2.8317798499	Seawater	2.24743561584	7.90694868227e-05	CAM (Crassulacean acid metabolism), dark
+M00169	3.09615355112	Seawater	2.49804953851	8.13577629362e-06	CAM (Crassulacean acid metabolism), light
+M00004	3.65058458424	Seawater	2.57583884557	0.000688940668819	Pentose phosphate pathway (Pentose phosphate cycle)
+M00008	3.13498330529	Mantle	2.53479772934	0.000161400600684	Entner-Doudoroff pathway, glucose-6P => glyceraldehyde-3P + pyruvate
+M00358	2.41962502852	Seawater	2.01708357431	3.52585155759e-05	Coenzyme M biosynthesis
+M00531	2.60270857546	Gill	2.00685748889	3.60995178464e-05	Assimilatory nitrate reduction, nitrate => ammonia
+M00530	2.87465548503	Gill	2.18829547172	8.81676515204e-05	Dissimilatory nitrate reduction, nitrate => ammonia
+M00533	2.61136301486	Gill	2.21318236398	2.55505065688e-06	Homoprotocatechuate degradation, homoprotocatechuate => 2-oxohept-3-enedioate
+M00173	3.02009303596	Mantle	2.35012185144	0.000189179914578	Reductive citrate cycle (Arnon-Buchanan cycle)
+M00175	2.56299219597	Digestivesystem	2.13774775657	0.0112646884337	Nitrogen fixation, nitrogen => ammonia
+M00622	2.7653992511	Seawater	2.40645232561	8.29634353754e-06	Nicotinate degradation, nicotinate => fumarate
+M00033	2.743802921	Digestivesystem	2.30363321938	5.16782915874e-07	Ectoine biosynthesis, aspartate => ectoine
+M00545	3.1514109063	Seawater	2.66054379162	2.2236536638e-05	Trans-cinnamate degradation, trans-cinnamate => acetyl-CoA
+M00356	2.65870957491	Digestivesystem	2.13386358533	0.00562227287235	Methanogenesis, methanol => methane
+M00596	2.91584439728	Seawater	2.5999052536	1.52033797657e-05	Dissimilatory sulfate reduction, sulfate => H2S
+M00550	2.37933837929	Digestivesystem	2.09700420114	1.76902003986e-07	Ascorbate degradation, ascorbate => D-xylulose-5P

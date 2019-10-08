@@ -1,5 +1,5 @@
-otu.l = read.table("clam.final.0.03.pick.OTU_table", header = TRUE)
-tax.l = read.table("clam.final_noConta.pick.tax", header = TRUE)
+otu.l = read.table("clam.final.OTU_table", header = TRUE)
+tax.l = read.table("clam.final.taxonomy", header = TRUE)
 con = read.table("conta_list", header = TRUE)
 negs= c("NegativePCR", "Negativeextration", "Negativemilliq1", "Negativemilliq2")
 

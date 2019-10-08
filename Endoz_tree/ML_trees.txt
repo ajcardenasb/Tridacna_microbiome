@@ -1,0 +1,16 @@
+### bacterial and endozoicomonas tree
+
+#all OTUs to calculate uniFrac and Faith’s PD @MiddleChild:/home/cardena/clam_microbiome/phyloTree/
+mafft --auto --adjustdirectionaccurately clam.noConta.fasta > clam.noConta.align
+fasttree -nt clam.noConta.align  > clam.tre
+
+#manually added Otu0007 and Otu0038 (Oceanospirillales: Saccharospirillaceae) to endoz+ref.fasta as outgroup 
+
+#alignment
+mafft --auto --adjustdirectionaccurately endoz+ref.fasta > endoz+ref.align
+
+#manually trimmed the tree
+
+#ML tree
+raxml -s endoz+ref.trim.align -n endoz+ref.trim.tre -m GTRCAT -f a -x 100 -N autoMRE -p 100 -o Otu0007,Otu0038 -f a
+

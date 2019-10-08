@@ -1,0 +1,7 @@
+biom convert -i clam_metagenome_predictions.biom -o input_LefSe_prediction.txt --to-tsv 
+
+#Fix sample name to be recognise by LefSe as a single group (removing numbers)
+
+sed 's/Digestivesystem[0-9][0-9]/Digestivesystem/g' input_LefSe_prediction.txt | sed 's/Digestivesystem[0-9]/Digestivesystem/g' | sed 's/Gill[0-9][0-9]/Gill/g' |  sed 's/Gill[0-9]/Gill/g' |  sed 's/Mantle[0-9][0-9]/Mantle/g' |  sed 's/Mantle[0-9]/Mantle/g' |  sed 's/Seawater[0-9]/Seawater/g' |  sed 's/Seawater[0-9][0-9]/Seawater/g' | sed 's/Seawater-1/Seawater/g' | grep -v "Constructed from biom" | sed 's/#OTU ID/Samples/' > input_LefSe_ed.tsv
+
+#ready to aggregate KOs to KEGG modules

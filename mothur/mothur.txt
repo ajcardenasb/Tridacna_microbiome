@@ -148,7 +148,7 @@ get.oturep(fasta=clam.trim.contigs.unique.abund.good.filter.unique.precluster.pi
 #clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.0.03.rep.count_table
 #clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.0.03.rep.fasta
 
-# bash
+## bash
 cp clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.shared clam.final.OTU_table
 cp clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy  clam.final.taxonomy
 grep -v ">" clam.trim.contigs.unique.abund.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.0.03.rep.fasta  | sed 's/-//g' > clam.temp1.fasta

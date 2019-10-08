@@ -1,0 +1,16 @@
+#prepare biom file in Mothur
+#You will need the tax file "gg_13_5_99.gg.ta from https://www.mothur.org/wiki/Greengenes-formatted_databases
+ 
+make.biom(shared=clam.final.OTU_noConta.shared, label=0.03, reftaxonomy=~/database/16S_mothur/gg_13_5_99.gg.tax, constaxonomy=clam.final.noConta.tax, metadata=metadata, picrust=97_otu_map.txt)
+
+
+biom convert -i clam.final.OTU_noConta.0.03.biom -o clam_biom.txt --to-tsv 
+biom convert -i clam_biom.txt  -o clam_hdf5.biom --table-type="OTU table" --to-hdf5 -m metadata
+
+##Normalize by copy number
+normalize_by_copy_number.py -i clam_hdf5.biom -o clam_normalized_otus.biom
+
+
+##. Run functional predictions
+predict_metagenomes.py -i clam_normalized_otus.biom -o clam_metagenome_predictions.biom -a nsti_per_sample.tab
+

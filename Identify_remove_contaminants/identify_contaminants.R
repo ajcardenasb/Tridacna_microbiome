@@ -1,3 +1,4 @@
+library(reshape2)
 otu = t(read.table("clam.final.OTU_table", header = FALSE)) ### Using column 2 as the title of the columns (sample1 sam....) ###
 colnames(otu) = otu[2, ]### removing the first 3 rows from the table now ##
 otu=otu[-c(1,2,3), ] 
@@ -29,4 +30,5 @@ noConta=subset(all, all$Conta<=10)
 conta=subset(all, all$Conta>=10)
 write.table(conta$Group, "conta_list", row.names = FALSE, quote = FALSE)
 taxnoConta = subset(tax, tax$OTU %in% noConta$Group)
-write.table(taxnoConta, "Tax_dataframe_No_taxonomy.txt", row.names = FALSE, quote = FALSE)
+#write.table(taxnoConta, "Tax_dataframe_No_taxonomy.txt", row.names = FALSE, quote = FALSE)
+
